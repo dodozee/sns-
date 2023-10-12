@@ -1,0 +1,49 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.4'
+	id 'io.spring.dependency-management' version '1.1.3'
+}
+
+group = 'com.withsports'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+// core 에 api, consumer이 의존
+//project(":api") {
+//	dependencies {
+//		implementation(project(":core"))
+//	}
+//}
+//
+//project(":consumer") {
+//	dependencies {
+//		implementation(project(":core"))
+//	}
+//}
+//
+//// core 설정
+//project(":module-core") {
+//	val jar: Jar by tasks
+//	val bootJar: BootJar by tasks
+//
+//	bootJar.enabled = false
+//	jar.enabled = true
+//
+//}
