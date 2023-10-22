@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.11'
+    id 'io.spring.dependency-management' version '1.1.3'
+}
+
+sourceCompatibility = '17'
+group = 'com.withsports'
+version = '0.0.1-SNAPSHOT'
+
+ext {
+    set('springCloudVersion', "2022.0.3")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
