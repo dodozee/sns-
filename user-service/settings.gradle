@@ -1,5 +1,0 @@
-rootProject.name = 'user-service'
-include 'api'
-include 'consumer'
-include 'core'
-
