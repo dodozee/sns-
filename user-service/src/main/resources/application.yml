@@ -60,10 +60,10 @@ spring:
   datasource:
 #   userdb로 바꿔야함
 #    url: jdbc:mysql://localhost:3306/mysql
-    url: jdbc:mysql://mysql:3306/mysql?useSSL=false
+#    url: jdbc:mysql://mysql:3306/mysql?useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 12341234
+#    username: root
+#    password: 12341234
 #driver-class-name: com.mysql.cj.jdbc.Driver
 #  url: jdbc:mysql://localhost:{포트번호}/{데이터베이스 이름}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
 #  username: root
