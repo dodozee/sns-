@@ -26,7 +26,7 @@ spring:
             client-id: bdIFdtnMMHEZN84F6lVg
             client-secret: FYIqelYXgX
 #            redirect-uri: "http://localhost:8080/success"
-            redirect-uri: "http://54.180.109.176:8000/user-service/login/oauth2/code/naver"
+            redirect-uri: "http://52.78.69.94:8000/user-service/login/oauth2/code/naver"
 #            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
 #            redirect-uri: http://user-service:8080/login/oauth2/code/naver
 #            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
