@@ -70,7 +70,6 @@ services:
 #      - spring.zipkin.base-url=http://zipkin:9411
     depends_on:
       - discovery
-
 #  config:
 #    container_name: config
 #    build:
@@ -90,7 +89,7 @@ services:
 #      - 3306:3306
 #    networks:
 #      - withsports-network
-      -
+
   mysql:
     # 컨테이너명 설정
     container_name: mysql
