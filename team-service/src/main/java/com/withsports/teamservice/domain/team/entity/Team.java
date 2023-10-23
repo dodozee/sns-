@@ -18,8 +18,7 @@ import java.util.List;
 @Table(name = "team")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Team extends BaseTimeEntity
-
+public class Team extends BaseTimeEntity{
     @Id @GeneratedValue
     @Column(name="team_id")
     private Long id;
@@ -33,7 +32,7 @@ public class Team extends BaseTimeEntity
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<TeamMember> teamMembers = new ArrayList<>();
 
-    //== 연관관계 편의 메소드 ==//
+    //연관관계 편의 메소드
     public void addTeamMember(TeamMember teamMember) {
         teamMembers.add(teamMember);
         teamMember.setTeam(this);

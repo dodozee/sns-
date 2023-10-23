@@ -122,6 +122,7 @@ services:
     networks:
       - withsports-network
 
+
   redis:
     container_name: redis
     image: redis:alpine
@@ -130,10 +131,34 @@ services:
     labels:
       - "name=redis"
       - "mode=standalone"
+
     ports:
       - 6379:6379
     networks:
       - withsports-network
+#  redis:
+#    container_name: redis
+#    image: redis:alpine
+#    command: redis-server --port 6379
+#    hostname: redis_boot
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=false
+#      - REDIS_PASSWORD=12341234
+#      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+#      - REDIS_TLS_CERT_FILE=/opt/bitnami/redis/certs/redis.crt
+#      - REDIS_TLS_KEY_FILE=/opt/bitnami/redis/certs/redis.key
+#      - REDIS_TLS_CA_FILE=/opt/bitnami/redis/certs/ca.crt
+#      - REDIS_TLS_ENABLED=yes
+#      - REDIS_TLS_AUTH_CLIENTS=yes
+#      - REDIS_TLS_PORT_NUMBER=6379
+#    labels:
+#      - "name=redis"
+#      - "mode=standalone"
+#    ports:
+#      - 6379:6379
+#    networks:
+#      - withsports-network
+#    ssl: true
 
   user-service:
     container_name: user
@@ -147,13 +172,13 @@ services:
       - spring.redis.host=redis
 #      - spring.zipkin.base-url=http://zipkin:9411
     ports:
-        - 8080:8080
+      - 8080:8080
     depends_on:
       - discovery
 #      - config
       - user-db
       - redis
-    restart: on-failure
+    restart: always
     networks:
       - withsports-network
 
@@ -161,9 +186,9 @@ services:
 networks:
   withsports-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.18.0.0/16
-          gateway: 172.18.0.1
+#    ipam:
+#      config:
+#      - subnet: 172.18.0.0/16
+#        gateway: 172.18.0.1
 
 

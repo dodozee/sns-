@@ -130,6 +130,8 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 //        //프론트 서버로 보낼 send Redirect URI를 지정. (프론트 서버에서는 쿠키에 저장된 refreshToken과
 //        URI의 쿼리 파라미터로 accessToken, 토큰 만료시간을 받는다.)
 //        response.sendRedirect("http://localhost:8080/user/"+userId);
+
+        System.out.println("리다이렉트 메서드 실행");
         response.sendRedirect("https://sony-babba.vercel.app/auth?" +
                 "accessToken=" + accessToken +
                 "&expiredTime="+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expiredTime));
