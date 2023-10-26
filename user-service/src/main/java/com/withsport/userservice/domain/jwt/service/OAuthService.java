@@ -3,7 +3,7 @@ package com.withsport.userservice.domain.jwt.service;
 import com.withsport.userservice.domain.user.dto.OAuthAttributeDto;
 import com.withsport.userservice.domain.user.entity.User;
 import com.withsport.userservice.domain.user.repository.UserRepository;
-import com.withsport.userservice.domain.user.service.UserService;
+import com.withsport.userservice.domain.user.service.UserServiceImpl;
 import com.withsport.userservice.global.utils.CookieProvider;
 import com.withsport.userservice.global.utils.JwtTokenProvider;
 import jakarta.servlet.ServletException;
@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,10 +23,8 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -43,7 +39,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final UserRepository userRepository;
     private final CookieProvider cookieProvider;
 
@@ -88,7 +84,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
         String userEmail = user.getEmail();
 
-        Collection<? extends GrantedAuthority> authorities = userService.loadUserByUsername(userEmail).getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = userServiceImpl.loadUserByUsername(userEmail).getAuthorities();
         return new DefaultOAuth2User(authorities, attributeDto.getAttributes(), attributeDto.getNameAttributeKey());
     }
 

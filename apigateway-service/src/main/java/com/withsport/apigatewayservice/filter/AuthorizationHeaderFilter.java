@@ -45,8 +45,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
             //JWT 토큰 판별
 
-            String token = authorizationHeader.replace("Bearer ", "");
-
+            String token = authorizationHeader.replace("Bearer", "");
+            System.out.println("제발 여기여라..");
             System.out.println("token = " + token);
             jwtTokenProvider.validateJwtToken(token);
 

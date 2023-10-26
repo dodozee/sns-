@@ -39,6 +39,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    //p6spy
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+
     implementation 'org.springframework.kafka:spring-kafka'
 
 //    implementation 'org.springframework.cloud:spring-cloud-starter-config'

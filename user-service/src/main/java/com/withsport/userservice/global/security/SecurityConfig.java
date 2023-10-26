@@ -56,7 +56,7 @@ public class SecurityConfig {
         http.oauth2Login()
                 // oauth2Login 성공 이후의 설정을 시작
                 .userInfoEndpoint()
-                //userService에서 처리하겠다.
+                //userService에서 처리하겠다는 설정
                 .userService(oAuthService)
                 .and()
                 .failureUrl("http://withsports.com/login")

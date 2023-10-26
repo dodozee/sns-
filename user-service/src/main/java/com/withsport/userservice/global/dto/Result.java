@@ -27,6 +27,14 @@ public class Result<T> {
                 .build();
 
     }
+    public static Result createSuccessResult(String message) {
+        return Result.builder()
+                .code(Code.SUCCESS)
+                .message(message)
+                .data(null)
+                .build();
+
+    }
 
     public static <T> Result createSuccessResult(T data){
         return Result.builder()

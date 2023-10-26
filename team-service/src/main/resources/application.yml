@@ -40,8 +40,10 @@ spring:
 logging:
   level:
     com.com.withsports: DEBUG
+    org.hibernate.sql: DEBUG
+#    org.hibernate.type: TRACE
 
 
-## jpa query, parameter 로그 (p6spy)
-#decorator.datasource.p6spy:
-#  enable-logging: true
+# jpa query, parameter 로그 (p6spy)
+decorator.datasource.p6spy:
+  enable-logging: true

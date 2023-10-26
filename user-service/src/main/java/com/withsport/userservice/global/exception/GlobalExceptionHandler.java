@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity userJwtExceptionHandler(RefreshTokenNotExistException e) {
         // 쿠키 삭제
         ResponseCookie responseCookie = cookieProvider.deleteRefreshTokenCookie();
-
+        System.out.println("쿠키 삭제");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
                 .body(e.getResult());

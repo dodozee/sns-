@@ -3,7 +3,9 @@ package com.withsport.userservice.domain.jwt.web;
 
 import com.withsport.userservice.domain.jwt.service.AccessTokenService;
 import com.withsport.userservice.domain.jwt.service.RefreshTokenService;
+import com.withsport.userservice.domain.jwt.web.response.RefreshTokenResponse;
 import com.withsport.userservice.domain.user.dto.JwtTokenDto;
+import com.withsport.userservice.domain.user.service.UserService;
 import com.withsport.userservice.global.dto.Result;
 import com.withsport.userservice.global.utils.CookieProvider;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +25,7 @@ public class AuthApi {
     private final RefreshTokenService refreshTokenService;
     private final AccessTokenService accessTokenService;
     private final CookieProvider cookieProvider;
+    private final UserService userService;
 
     @GetMapping("/reissue")
     public ResponseEntity<Result> refreshToken(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
@@ -58,6 +60,8 @@ public class AuthApi {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Result.createSuccessResult(null));
     }
+
+
 
 
 }

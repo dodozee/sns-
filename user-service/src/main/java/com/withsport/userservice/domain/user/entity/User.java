@@ -1,6 +1,6 @@
 package com.withsport.userservice.domain.user.entity;
 
-import com.withsport.userservice.global.entity.BaseEntity;
+import com.withsport.userservice.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,24 +29,26 @@ public class User {
     private String password;
     private String name;
     private String nickname;
-    private String Address;
+    private String area;
 
     @Column(insertable = false, updatable = false)
     protected String dtype;
     @Enumerated(EnumType.STRING)
     private AuthType oauthType;
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
-    public User(String email, String password, String name, String nickname, String Address, AuthType oauthType) {
+
+    public User(String email, String password, String name, String nickname, String area, AuthType oauthType) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
-        this.Address = Address;
+        this.area = area;
         this.dtype = User.class.getSimpleName();
         this.oauthType = oauthType;
+    }
+
+    public void addUserProfile(String nickname, String address) {
+        this.nickname = nickname;
+        this.area = address;
     }
 }

@@ -13,7 +13,7 @@ public class UserDto {
     private String password;
     private String name;
     private String nickname;
-    private String address;
+    private String area;
     private String dtype;
 
 
@@ -25,17 +25,17 @@ public class UserDto {
         this.password = user.getPassword();
         this.name = user.getName();
         this.nickname = user.getNickname();
-        this.address = user.getAddress();
+        this.area = user.getArea();
     }
 
     @Builder
-    public UserDto(Long id, String email, String password, String name, String nickname, String address, String dtype){
+    public UserDto(Long id, String email, String password, String name, String nickname, String area, String dtype){
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
-        this.address = address;
+        this.area = area;
         this.dtype = dtype;
     }
 }

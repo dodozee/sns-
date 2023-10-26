@@ -45,6 +45,7 @@ public class OAuthAttributeDto {
                 .email((String) response.get("email"))
                 .nameAttributeKey("id")
                 .attributes(response)
+                .authType(AuthType.NAVER)
                 .build();
 
     }

@@ -111,16 +111,55 @@ services:
       MYSQL_DATABASE: userdb
       MYSQL_ROOT_PASSWORD: 12341234
       TZ: Asia/Seoul
-    # 명렬어 설정
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-    # 볼륨 설정
-#    volumes:
-#      - ./data/mysql/:/var/lib/mysql
+    volumes:
+      - ./data/mysql/:/var/lib/mysql
     # 네트워크 설정
     networks:
       - withsports-network
+
+#  team-db:
+#    container_name: team-db
+#    image: mysql:8
+#    restart: always
+#    ports:
+#      - 3307:3306
+#    environment:
+#      MYSQL_DATABASE: teamdb
+#      MYSQL_ROOT_PASSWORD: 12341234
+#      TZ: Asia/Seoul
+#    command:
+#      - --character-set-server=utf8mb4
+#      - --collation-server=utf8mb4_unicode_ci
+#    # 볼륨 설정
+#    #    volumes:
+#    #      - ./data/mysql/:/var/lib/mysql
+#    # 네트워크 설정
+#    networks:
+#      - withsports-network
+#
+#  matching-db:
+#    container_name: matching-db
+#    image: mysql:8
+#    restart: always
+#    ports:
+#      - 3308:3306
+#    environment:
+#      MYSQL_DATABASE: matchingdb
+#      MYSQL_ROOT_PASSWORD: 12341234
+#      TZ: Asia/Seoul
+#    # 명렬어 설정
+#    command:
+#      - --character-set-server=utf8mb4
+#      - --collation-server=utf8mb4_unicode_ci
+#    # 볼륨 설정
+#    #    volumes:
+#    #      - ./data/mysql/:/var/lib/mysql
+#    # 네트워크 설정
+#    networks:
+#      - withsports-network
 
 
   redis:
@@ -131,34 +170,10 @@ services:
     labels:
       - "name=redis"
       - "mode=standalone"
-
     ports:
       - 6379:6379
     networks:
       - withsports-network
-#  redis:
-#    container_name: redis
-#    image: redis:alpine
-#    command: redis-server --port 6379
-#    hostname: redis_boot
-#    environment:
-#      - ALLOW_EMPTY_PASSWORD=false
-#      - REDIS_PASSWORD=12341234
-#      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-#      - REDIS_TLS_CERT_FILE=/opt/bitnami/redis/certs/redis.crt
-#      - REDIS_TLS_KEY_FILE=/opt/bitnami/redis/certs/redis.key
-#      - REDIS_TLS_CA_FILE=/opt/bitnami/redis/certs/ca.crt
-#      - REDIS_TLS_ENABLED=yes
-#      - REDIS_TLS_AUTH_CLIENTS=yes
-#      - REDIS_TLS_PORT_NUMBER=6379
-#    labels:
-#      - "name=redis"
-#      - "mode=standalone"
-#    ports:
-#      - 6379:6379
-#    networks:
-#      - withsports-network
-#    ssl: true
 
   user-service:
     container_name: user

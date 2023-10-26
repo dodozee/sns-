@@ -17,7 +17,7 @@ public class HeaderAuthorizationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
             return;
         }
-
+        System.out.println("do HeaderAuthorizationFilter.doFilterInternal ");
         String email = request.getHeader("jwt-sub");
         log.info("email jwt-sub = {}", email);
 
