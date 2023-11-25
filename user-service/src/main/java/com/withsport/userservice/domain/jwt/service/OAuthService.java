@@ -100,22 +100,16 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         refreshTokenService.updateRefreshToken(userId, jwtTokenProvider.getRefreshTokenId(refreshToken));
 
 
-//        =createRefreshTokenCookie(refreshToken);
-//        response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/login/callback")
-//                .queryParam("accessToken", accessToken)
-//                .queryParam("refreshToken", refreshToken)
-//                .build()
-//                .encode(StandardCharsets.UTF_8)
-//                .toUriString());
-
         // 쿠키 설정 - refresh Token 저장
         ResponseCookie refreshTokenCookie = cookieProvider.createRefreshTokenCookie(refreshToken);
 
         Cookie cookie = cookieProvider.of(refreshTokenCookie);
+        cookie.setDomain("sony-babba.vercel.app");
 
         response.setContentType(APPLICATION_JSON_VALUE);
         response.addCookie(cookie);
-//        response.setHeader("Set-Cookie", cookie.toString());
+
+
 
         //쿼리 파라미터에 access Token 저장
         String accessToken = jwtTokenProvider.createJwtAccessToken(String.valueOf(userId), request.getRequestURI(),
@@ -130,7 +124,7 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
         System.out.println("리다이렉트 메서드 실행");
         response.sendRedirect("https://sony-babba.vercel.app/auth?" +
                 "accessToken=" + accessToken +
-                "&expiredTime="+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expiredTime));
+                "&expiredTime="+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expiredTime) + "&userId=" + userId);
 
     }
 

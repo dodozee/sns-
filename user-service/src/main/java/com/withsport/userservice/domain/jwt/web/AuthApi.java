@@ -8,6 +8,7 @@ import com.withsport.userservice.domain.user.dto.JwtTokenDto;
 import com.withsport.userservice.domain.user.service.UserService;
 import com.withsport.userservice.global.dto.Result;
 import com.withsport.userservice.global.utils.CookieProvider;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -26,9 +27,9 @@ public class AuthApi {
     private final AccessTokenService accessTokenService;
     private final CookieProvider cookieProvider;
     private final UserService userService;
-
+//X-AUTH-TOKEN
     @GetMapping("/reissue")
-    public ResponseEntity<Result> refreshToken(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
+    public ResponseEntity<Result> refreshToken(@RequestHeader(value = "Authorization") String accessToken,
                                                @CookieValue(value = "refresh-token") String refreshToken) {
 
 
@@ -42,18 +43,20 @@ public class AuthApi {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Result> logout(@RequestHeader("X-AUTH-TOKEN") String accessToken){
+    public ResponseEntity<Result> logout(@Valid @RequestHeader("Authorization") String accessToken){
         refreshTokenService.logoutToken(accessToken);
 
+
+        System.out.println("로그아웃 api 작동");
         ResponseCookie responseCookie = cookieProvider.deleteRefreshTokenCookie();
 
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                .body(Result.createSuccessResult(""));
+                .body(Result.createSuccessResult("로그아웃이 성공적으로 되었습니다."));
     }
 
     @GetMapping(value = "/check/access-token")
-    public ResponseEntity<Result> checkAccessToken(@RequestHeader(name = "Authorization") String authorization) {
+    public ResponseEntity<Result> checkAccessToken(@Valid @RequestHeader(name = "Authorization") String authorization) {
         System.out.println("999999999999999");
         accessTokenService.checkAccessToken(authorization);
 

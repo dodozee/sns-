@@ -9,4 +9,8 @@ include 'gifticon-service'
 include 'point-service'
 include 'record-service'
 include 'board-service'
+include 'notification-service'
+include 'book-service'
+include 'booking-service'
+include 'booking-service'
 

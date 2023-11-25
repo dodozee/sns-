@@ -1,0 +1,18 @@
+package com.withsports.notificationservice.domain.team.repository;
+
+import com.withsports.notificationservice.domain.team.entity.Notification;
+import com.withsports.notificationservice.global.dto.Yn;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
+    List<Notification> findByUserId(Long userId, Sort sort);
+
+    Long countByUserIdAndReadYn(Long userId, Yn readYn);
+
+}

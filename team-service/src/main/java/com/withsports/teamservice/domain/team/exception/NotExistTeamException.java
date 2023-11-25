@@ -6,6 +6,6 @@ import org.springframework.http.HttpStatus;
 public class NotExistTeamException extends TeamException {
 
     public NotExistTeamException(String message) {
-        super(HttpStatus.CONFLICT, message);
+        super(HttpStatus.NOT_FOUND, message);
     }
 }

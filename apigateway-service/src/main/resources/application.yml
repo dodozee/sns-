@@ -1,5 +1,11 @@
 server:
   port: 8000
+  ssl:
+    enabled: true
+#    key-alias: withsports-ssl
+    key-store-password: 12341234
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
 
 
 eureka:
@@ -30,7 +36,8 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "https://sony-babba.vercel.app"
+#              - "https://nid.naver.com"
             allowedMethods:
               - GET
               - POST
@@ -40,7 +47,7 @@ spring:
               - DELETE
               - PATCH
             allowedHeaders: '*'
-            allow-credentials: false
+            allow-credentials: true
 
       routes:
         - id: user-service
@@ -75,13 +82,6 @@ spring:
           filters:
             - RewritePath=/user-service/(?<segment>.*),/$\{segment}
 
-#        연습삼아서 만들어본거
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/success
-          filters:
-            - RewritePath=/user-service/(?<segment>.*),/$\{segment}
 
         - id: user-service
           uri: lb://USER-SERVICE
@@ -117,18 +117,48 @@ spring:
                 redis-rate-limiter.replenishRate: 3
                 redis-rate-limiter.burstCapacity: 3
                 key-resolver: "#{@tokenKeyResolver}"
-        - id: matchingroom-service
-          uri: lb://MATCHINGROOM-SERVICE
+        #        연습삼아서 만들어본거
+        - id: team-service
+          uri: lb://TEAM-SERVICE
           predicates:
-            - Path=/store-service/**
+            - Path=/user-service/**
           filters:
             - AuthorizationHeaderFilter
-            - RewritePath=/matchingroom-service/(?<segment>.*), /$\{segment}
-            - name : RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 3
-                redis-rate-limiter.burstCapacity: 3
-                key-resolver: "#{@tokenKeyResolver}"
+            - RewritePath=/user-service/(?<segment>.*),/$\{segment}
+
+
+        - id: record-service
+          uri: lb://RECORD-SERVICE
+          predicates:
+            - Path=/record-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/record-service/(?<segment>.*), /$\{segment}
+
+        - id: gifticon-service
+          uri: lb://GIFTICON-SERVICE
+          predicates:
+            - Path=/gifticon-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/gifticon-service/(?<segment>.*), /$\{segment}
+
+
+        - id: point-service
+          uri: lb://POINT-SERVICE
+          predicates:
+            - Path=/point-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/point-service/(?<segment>.*), /$\{segment}
+
+        - id: booking-service
+          uri: lb://BOOKING-SERVICE
+          predicates:
+            - Path=/booking-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/booking-service/(?<segment>.*), /$\{segment}
 
         - id: matching-service
           uri: lb://MATCHING-SERVICE
@@ -137,6 +167,19 @@ spring:
           filters:
             - AuthorizationHeaderFilter
             - RewritePath=/matching-service/(?<segment>.*), /$\{segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 3
+                key-resolver: "#{@tokenKeyResolver}"
+
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification-service/**
+          filters:
+            - AuthorizationHeaderFilter
+            - RewritePath=/notification-service/(?<segment>.*), /$\{segment}
 
 
 

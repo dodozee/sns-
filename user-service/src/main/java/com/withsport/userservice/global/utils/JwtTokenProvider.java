@@ -26,6 +26,7 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(userId);
         claims.put("roles", roles);
 
+//        System.out.println(System.currentTimeMillis());
         return Jwts.builder()
                 .addClaims(claims)
                 .setExpiration(
@@ -51,7 +52,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public boolean validateJwtToken(String token) {
+    public boolean validateJwtToken(String authorizationHeader) {
+        System.out.println("validateJwtToken: " + authorizationHeader);
+        String token = getAccessToken(authorizationHeader);
+        System.out.println("token: " + token);
         try {
             Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
             return true;
@@ -73,25 +77,33 @@ public class JwtTokenProvider {
         }
     }
 
+
+
     public boolean equalRefreshTokenId(String refreshTokenId, String refreshToken){
         return refreshTokenId.equals(getRefreshTokenId(refreshToken));
     }
 
     //access토큰으로 부터 userId를 추출
-    public String getUserId(String token){
+    public String getUserId(String accessToken){
+        System.out.println("여기까지 실행 : getUserId");
+        String token = getAccessToken(accessToken);
         return getClaimsFromJwtToken(token).getSubject();
     }
 
     private Claims getClaimsFromJwtToken(String token){
         try{
-            return Jwts.parser()
-                    .setSigningKey(SECRET).parseClaimsJws(token).getBody();
+            System.out.println("여기까지 실행 : getClaimsFromJwtToken");
+            return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         }catch (ExpiredJwtException e){
             log.error("getClaimsFromJwtToken error : {}", e.getMessage());
             throw new RuntimeException("getClaimsFromJwtToken error : " + e.getMessage());
         }
     }
 
+    private static String getAccessToken(String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        return token;
+    }
 
 
 

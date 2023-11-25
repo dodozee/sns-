@@ -1,9 +1,12 @@
 package com.withsports.teamservice.global.dto;
 
 
+import com.withsports.teamservice.domain.team.web.response.TeamUserApplicationResponse;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -37,10 +40,18 @@ public class Result<T> {
 
     }
 
+
     public static <T> Result createSuccessResult(T data){
         return Result.builder()
                 .code(Code.SUCCESS)
                 .message("")
+                .data(data)
+                .build();
+    }
+    public static <T> Result createSuccessResult(T data, String message){
+        return Result.builder()
+                .code(Code.SUCCESS)
+                .message(message)
                 .data(data)
                 .build();
     }
@@ -52,4 +63,6 @@ public class Result<T> {
                 .data(null)
                 .build();
     }
+
+
 }

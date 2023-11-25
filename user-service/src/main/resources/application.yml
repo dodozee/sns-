@@ -1,14 +1,15 @@
-server.port: 8080
+server.port: 0
 
 logging:
   level:
-    com.withsporst: DEBUG
+    com.withsports: DEBUG
     org.hibernate.sql: DEBUG
 #    org.hibernate.type: TRACE
 
 # jpa query, parameter 로그 (p6spy)
 decorator.datasource.p6spy:
   enable-logging: true
+
 
 spring:
   application:
@@ -34,7 +35,7 @@ spring:
             client-id: bdIFdtnMMHEZN84F6lVg
             client-secret: FYIqelYXgX
 #            redirect-uri: "http://localhost:8080/success"
-            redirect-uri: "http://3.37.203.5:8000/user-service/login/oauth2/code/naver"
+            redirect-uri: "https://withsports.shop:8000/user-service/login/oauth2/code/naver"
 #            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
 #            redirect-uri: http://user-service:8080/login/oauth2/code/naver
 #            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
@@ -83,6 +84,8 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        show_sql: true
+        format_sql: true
         default_batch_fetch_size: 1000
 
 
@@ -115,3 +118,20 @@ eureka:
     register-with-eureka: true
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAYGDQZCHGA6H2PSW3
+      secret-key: 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
+    s3:
+      bucket: with-sports-s3
+    region:
+      static: ap-northeast-2 # 리전 정보(서울)
+    stack:
+      auto: false
+
+
+kafka:
+  bootstrap:
+    servers: 172.18.0.151:9092,172.18.0.152:9093,172.18.0.153:9094

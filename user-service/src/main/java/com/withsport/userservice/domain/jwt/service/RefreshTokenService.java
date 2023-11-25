@@ -89,9 +89,13 @@ public class RefreshTokenService {
             throw new AccessTokenNotValidException("Not validate jwt token = " + accessToken);
         }
 
-        RefreshToken refreshToken = refreshTokenRedisRepository.findById(jwtTokenProvider.getRefreshTokenId(accessToken))
-                .orElseThrow(() -> new RefreshTokenNotExistException("refresh 고유번호 : " + jwtTokenProvider.getRefreshTokenId(accessToken) + "는 등록된 리프레쉬 토큰이 없습니다."));
+        System.out.println("logoutToken 메서드에서 ValidateJwtToken 까지는 통과: ");
+        System.out.println("jwtTokenProvider.getUserId(accessToken) 값 :" + jwtTokenProvider.getUserId(accessToken));
+        RefreshToken refreshToken = refreshTokenRedisRepository.findById(jwtTokenProvider.getUserId(accessToken))
+                .orElseThrow(() -> new RefreshTokenNotExistException("refresh 고유번호 : " + jwtTokenProvider.getUserId(accessToken) + "는 등록된 리프레쉬 토큰이 없습니다."));
 
+        //com.withsport.userservice.domain.jwt.redis.RefreshToken@784ff00e
+        System.out.println("refreshToken"+refreshToken);
         refreshTokenRedisRepository.delete(refreshToken);
     }
 

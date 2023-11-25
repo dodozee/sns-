@@ -32,38 +32,30 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
 
-            System.out.println("11111111111");
             ServerHttpRequest request = exchange.getRequest();
 
             HttpHeaders headers = request.getHeaders();
             if (!headers.containsKey(HttpHeaders.AUTHORIZATION)) {
-                System.out.println("1212121212121212");
                 return onError(exchange, "No authorization header", HttpStatus.UNAUTHORIZED);
             }
-            System.out.println("22222222222222");
             String authorizationHeader = headers.get(HttpHeaders.AUTHORIZATION).get(0);
 
             //JWT 토큰 판별
 
-            String token = authorizationHeader.replace("Bearer", "");
-            System.out.println("제발 여기여라..");
+            String token = authorizationHeader.replace("Bearer ", "");
             System.out.println("token = " + token);
             jwtTokenProvider.validateJwtToken(token);
 
             String subject = jwtTokenProvider.getUserId(token);
-            System.out.println("33333333333");
             if(subject.equals("feign"))
                 return chain.filter(exchange);
 
             if(!jwtTokenProvider.getRoles(token).contains("User")){
                 return onError(exchange, "권한 없음", HttpStatus.UNAUTHORIZED);
             }
-            System.out.println("444444444444");
 
-            //헤더에 유저 아이디 추가
-            ServerHttpRequest newRequest = request.mutate()
-                    .header("USER-ID", subject)
-                    .build();
+            ServerHttpRequest newRequest = request.mutate().header("user-id", subject).build();
+
 
             return chain.filter(exchange.mutate().request(newRequest).build());
         };

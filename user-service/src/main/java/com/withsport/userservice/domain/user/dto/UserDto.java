@@ -14,6 +14,8 @@ public class UserDto {
     private String name;
     private String nickname;
     private String area;
+    private String introduction;
+    private String profileImage;
     private String dtype;
 
 
@@ -22,11 +24,28 @@ public class UserDto {
     public UserDto(User user){
         this.id = user.getId();
         this.email = user.getEmail();
+        this.name = user.getName();
+        this.introduction = user.getIntroduction();
+        this.nickname = user.getNickname();
+        this.area = user.getArea();
+        if(user.getProfileImage()==null){
+            profileImage="https://with-sports-s3.s3.ap-northeast-2.amazonaws.com/static/bae53540-5cd1-4457-a42d-03449ca7a0a0basic.jpeg";
+        }else {
+            this.profileImage = user.getProfileImage();
+        }
+    }
+
+    public UserDto(User user, String profileImage){
+        this.id = user.getId();
+        this.email = user.getEmail();
         this.password = user.getPassword();
         this.name = user.getName();
         this.nickname = user.getNickname();
         this.area = user.getArea();
+        this.introduction = user.getIntroduction();
+        this.profileImage = profileImage;
     }
+
 
     @Builder
     public UserDto(Long id, String email, String password, String name, String nickname, String area, String dtype){
@@ -34,6 +53,7 @@ public class UserDto {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.introduction = introduction;
         this.nickname = nickname;
         this.area = area;
         this.dtype = dtype;

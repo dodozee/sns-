@@ -14,17 +14,17 @@ public class CreateTeamDto {
     private Long leaderId;
     private String introduction;
     private String imageUrl;
-    private String location;
+    private String area;
     private String sports;
 
 
     @Builder
-    public CreateTeamDto(String teamName, Long leaderId, String introduction, String imageUrl, String location, String sports){
+    public CreateTeamDto(String teamName, Long leaderId, String introduction, String imageUrl, String area, String sports){
         this.teamName = teamName;
         this.leaderId = leaderId;
         this.introduction = introduction;
         this.imageUrl = imageUrl;
-        this.location = location;
+        this.area = area;
         this.sports = sports;
     }
     public static CreateTeamDto of(Team team){
@@ -33,7 +33,7 @@ public class CreateTeamDto {
         createTeamDto.leaderId = team.getLeaderId();
         createTeamDto.introduction = team.getIntroduction();
         createTeamDto.imageUrl = team.getImageUrl();
-        createTeamDto.location = team.getLocation();
+        createTeamDto.area = team.getArea();
         createTeamDto.sports = team.getSports();
         return createTeamDto;
     }

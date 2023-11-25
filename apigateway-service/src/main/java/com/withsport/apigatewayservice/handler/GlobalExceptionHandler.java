@@ -45,13 +45,12 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
             responseBody.put("code", "EXPIRED");
-            responseBody.put("message", "Access Token is Expired!");
+            responseBody.put("message", "액세스 토큰이 만료되었습니다.");
         } else if (jwtExceptions.contains(exceptionClass)){
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
             responseBody.put("code", "INVALID");
-            responseBody.put("message", "Invalid Access Token");
-            System.out.println("여기가 문제다 ㅅㅂㅅㅂㅅㅂㅅㅂㅆㅂ");
+            responseBody.put("message", "유효하지않는 액세스 토큰");
 
         } else {
             exchange.getResponse().setStatusCode(exchange.getResponse().getStatusCode());

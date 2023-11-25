@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .deleteCookies("refresh-token");
 
+
+        System.out.println("여기까지 실행되는건가?제발 살려주세요...");
                 //oauth2Login 설정 시작
         http.oauth2Login()
                 // oauth2Login 성공 이후의 설정을 시작

@@ -1,18 +1,13 @@
 package com.withsports.teamservice.domain.team.entity;
 
-import com.withsports.teamservice.domain.teammember.entity.TeamMember;
+import com.withsports.teamservice.domain.teamuser.entity.TeamUser;
 import com.withsports.teamservice.global.entity.BaseTimeEntity;
-import com.withsports.teamservice.global.entity.Image;
-import com.withsports.teamservice.global.entity.Sports;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +15,8 @@ import java.util.List;
 @Table(name = "team")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+
 //@EqualsAndHashCode(of = "id", callSuper = false)
 public class Team extends BaseTimeEntity{
 
@@ -30,8 +27,11 @@ public class Team extends BaseTimeEntity{
     @Column(name="team_name")
     private String teamName;
     //팀장 pk
-    @Column(name="team_leader_id")
+    @Column(name="leader_id")
     private Long leaderId;
+
+    @Column(name="leader_name")
+    private String leaderName;
 
     private String introduction;
 
@@ -41,34 +41,45 @@ public class Team extends BaseTimeEntity{
 
     private String sports;
 
+    private Long teamMemberCount;
+
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<TeamMember> teamMembers = new ArrayList<>();
+    private List<TeamUser> teamUsers = new ArrayList<>();
 
     //연관관계 편의 메소드
-    public void addTeamMember(TeamMember teamMember) {
-        teamMembers.add(teamMember);
-        teamMember.setTeam(this);
+    public void addTeamUser(TeamUser teamUser) {
+        teamUsers.add(teamUser);
+        teamUser.setTeam(this);
     }
-    public static Team of(String teamName, Long leaderId, String introduction, String imageUrl, String area, String sports){
+    public static Team of(String teamName, Long leaderId, String leaderName, String introduction, String area, String sports){
         Team team = new Team();
         team.teamName = teamName;
         team.leaderId = leaderId;
+        team.leaderName = leaderName;
         team.introduction = introduction;
-        team.imageUrl = uploadImage(imageUrl);
         team.area = area;
         team.sports = sports;
+        team.teamMemberCount = 0L;
         return team;
     }
 
-    public static String uploadImage(String uploadedImage) {
-        if (uploadedImage != null && !uploadedImage.isEmpty()) {
-            //이미지 주소 저장
-            return uploadedImage;
-        }
-        // TODO : null(x) -> 기본 이미지 주소 저장
-        return null;
+    public void setImage(String uploadedImage) {
+        this.imageUrl = uploadedImage;
     }
 
 
+    public void updateTeamProfile(String teamName, String introduction, String area, String sports) {
+        this.teamName = teamName;
+        this.introduction = introduction;
+        this.area = area;
+        this.sports = sports;
+    }
 
+    public void changeLeaderName(String nickname) {
+        this.leaderName = nickname;
+    }
+
+    public void addTeamCount() {
+        this.teamMemberCount++;
+    }
 }

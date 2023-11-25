@@ -43,4 +43,13 @@ public class Result<T> {
                 .data(data)
                 .build();
     }
+
+    public static <T> Result createSuccessResult(T data, String message){
+        return Result.builder()
+                .code(Code.SUCCESS)
+                .message(message)
+                .data(data)
+                .build();
+    }
+
 }
