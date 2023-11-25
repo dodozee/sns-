@@ -71,7 +71,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                     Authentication authResult) throws IOException {
 
-        org.springframework.security.core.userdetails.User user = (User) authResult.getPrincipal();
+        User user = (User) authResult.getPrincipal();
 
         List<String> roles = user.getAuthorities()
                 .stream()
