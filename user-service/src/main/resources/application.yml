@@ -16,12 +16,12 @@ spring:
     name: user-service
 
 
-#  config:
-#    import: optional:configserver:http://127.0.0.1:8888
-#  cloud:
-#    config:
-#      name: user-service
-#      profile: dev
+  config:
+    import: optional:configserver:http://127.0.0.1:8888
+  cloud:
+    config:
+      name: user-service
+      profile: dev
   security:
     oauth2:
       client:
@@ -34,11 +34,8 @@ spring:
           naver:
             client-id: bdIFdtnMMHEZN84F6lVg
             client-secret: FYIqelYXgX
-#            redirect-uri: "http://localhost:8080/success"
+
             redirect-uri: "https://withsports.shop:8000/user-service/login/oauth2/code/naver"
-#            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
-#            redirect-uri: http://user-service:8080/login/oauth2/code/naver
-#            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
             scope: name,email
             client-name: Naver
@@ -67,16 +64,11 @@ spring:
 
 
   datasource:
-#   userdb로 바꿔야함
-#    url: jdbc:mysql://localhost:3306/mysql
-#    url: jdbc:mysql://mysql:3306/mysql?useSSL=false
+
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 12341234
-#driver-class-name: com.mysql.cj.jdbc.Driver
-#  url: jdbc:mysql://localhost:{포트번호}/{데이터베이스 이름}?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#  username: root
-#  password: {root password}
+
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -89,24 +81,13 @@ spring:
         default_batch_fetch_size: 1000
 
 
-#  data:
-#    redis:
-#      host: 172.17.0.1
-#      port: 6379
-#  data:
-#    redis:
-#172.18.0.3
-#      port: 6379
-#      ssl: true
-#      SPRING_DATA_REDIS_HOST: "your_host"
-#      SPRING_DATA_REDIS_PASSWORD: "12341234"
-##      password: 12341234
+
 
 token:
   access-expired-time: 7200000
   refresh-expired-time: 604800000
   secret: A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6
-#  secret: $9a$39$k942Y7Y20xqkFt1qbODZIO4OMTeOxnrCe7tF3n5bazJinVE7VH5Pi
+
   access-token-name: access-token
   refresh-token-name: refresh-token
 
@@ -122,8 +103,8 @@ eureka:
 cloud:
   aws:
     credentials:
-      access-key: AKIAYGDQZCHGA6H2PSW3
-      secret-key: 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
+      access-key: 
+      secret-key: 
     s3:
       bucket: with-sports-s3
     region:
