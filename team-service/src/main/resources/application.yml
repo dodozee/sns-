@@ -45,8 +45,8 @@ decorator.datasource.p6spy:
 cloud:
   aws:
     credentials:
-      access-key: AKKAYGDQZCHGA7H2PSW3
-      secret-key: +th0dLwxUrx4t96CTrB2v1RcWEpChzRiAQtiwIdZ
+      access-key:
+      secret-key:
     s3:
       bucket: with-sports-s3
     region:

@@ -51,17 +51,7 @@ logging:
 decorator.datasource.p6spy:
   enable-logging: true
 
-#cloud:
-#  aws:
-#    credentials:
-#      access-key: AKIAYGDQZCHGA6H2PSW3
-#      secret-key: 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
-#    s3:
-#      bucket: with-sports-s3
-#    region:
-#      static: ap-northeast-2 # 리전 정보(서울)
-#    stack:
-#      auto: false
+
 kafka:
   bootstrap:
     servers: 172.18.0.151:9092,172.18.0.152:9093,172.18.0.153:9094

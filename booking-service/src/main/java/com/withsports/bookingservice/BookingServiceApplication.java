@@ -14,5 +14,9 @@ public class BookingServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookingServiceApplication.class, args);
     }
+    @Bean
+    public ServerCodecConfigurer serverCodecConfigurer() {
+        return ServerCodecConfigurer.create();
+    }
 
 }

@@ -13,4 +13,5 @@ include 'notification-service'
 include 'book-service'
 include 'booking-service'
 include 'booking-service'
+include 'booking-service'
 
