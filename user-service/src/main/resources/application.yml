@@ -122,8 +122,8 @@ eureka:
 cloud:
   aws:
     credentials:
-      access-key: AKIAYGDQZCHGA6H2PSW3
-      secret-key: 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
+      access-key:
+      secret-key: 
     s3:
       bucket: with-sports-s3
     region:
